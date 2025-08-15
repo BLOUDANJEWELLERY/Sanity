@@ -10,12 +10,18 @@ export default defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: Rule => Rule.required()
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
+    }),
+    defineField({
+      name: 'price',
+      title: 'Base Price',
+      type: 'number',
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'defaultImage',
@@ -25,35 +31,46 @@ export default defineType({
     }),
     defineField({
       name: 'colorImages',
-      title: 'Image for Each Color',
+      title: 'Images per Color',
       type: 'array',
       of: [
-        {
+        defineType({
           type: 'object',
+          name: 'colorImage',
           fields: [
-            { name: 'color', title: 'Color', type: 'string' },
-            { name: 'image', title: 'Image', type: 'image', options: { hotspot: true } }
-          ]
-        }
-      ]
+            defineField({
+              name: 'color',
+              title: 'Color Name',
+              type: 'string',
+              validation: Rule => Rule.required(),
+            }),
+            defineField({
+              name: 'image',
+              title: 'Image',
+              type: 'image',
+              options: { hotspot: true },
+              validation: Rule => Rule.required(),
+            }),
+          ],
+        }),
+      ],
     }),
     defineField({
       name: 'variants',
       title: 'Variants',
       type: 'array',
       of: [
-        {
+        defineType({
           type: 'object',
+          name: 'variant',
           fields: [
-            {
+            defineField({
               name: 'color',
               title: 'Color',
               type: 'string',
-              options: {
-                list: [], // We'll populate this dynamically
-              }
-            },
-            {
+              validation: Rule => Rule.required(),
+            }),
+            defineField({
               name: 'size',
               title: 'Size',
               type: 'string',
@@ -67,32 +84,45 @@ export default defineType({
                   { title: 'XXL', value: 'XXL' },
                 ],
               },
-            },
-            { name: 'sku', title: 'SKU', type: 'string', readOnly: true },
-            { name: 'quantity', title: 'Quantity', type: 'number' },
-            { name: 'priceOverride', title: 'Price Override', type: 'number' },
+              validation: Rule => Rule.required(),
+            }),
+            defineField({
+              name: 'quantity',
+              title: 'Quantity',
+              type: 'number',
+              validation: Rule => Rule.required(),
+            }),
+            defineField({
+              name: 'priceOverride',
+              title: 'Price Override',
+              type: 'number',
+            }),
+            defineField({
+              name: 'sku',
+              title: 'SKU',
+              type: 'string',
+              readOnly: true,
+            }),
           ],
-        },
+        }),
       ],
-    }),
-    defineField({
-      name: 'price',
-      title: 'Base Price',
-      type: 'number',
-      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: { source: 'title', maxLength: 96 },
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
+      validation: Rule => Rule.required(),
     }),
   ],
   preview: {
     select: {
       title: 'title',
       subtitle: 'price',
-      media: 'defaultImage'
-    }
-  }
+      media: 'defaultImage',
+    },
+  },
 })
