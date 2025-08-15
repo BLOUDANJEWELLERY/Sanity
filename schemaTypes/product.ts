@@ -24,24 +24,6 @@ export default defineType({
       options: { hotspot: true },
     }),
     defineField({
-      name: 'colors',
-      title: 'Available Colors',
-      type: 'array',
-      of: [{ type: 'string' }],
-      options: {
-        list: [
-          { title: 'White', value: 'white' },
-          { title: 'Black', value: 'black' },
-          { title: 'Red', value: 'red' },
-          { title: 'Blue', value: 'blue' },
-          { title: 'Green', value: 'green' },
-          { title: 'Yellow', value: 'yellow' },
-          { title: 'Brown', value: 'brown' },
-          { title: 'Grey', value: 'grey' },
-        ],
-      },
-    }),
-    defineField({
       name: 'colorImages',
       title: 'Image for Each Color',
       type: 'array',
