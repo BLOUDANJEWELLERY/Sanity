@@ -34,12 +34,12 @@ export default defineType({
       type: 'text',
     }),
     defineField({
-      name: 'order',
-      title: 'Order',
-      type: 'number',
-      description: 'Controls the display order within its parent category',
-      initialValue: 0,
-    }),
+  name: 'order',
+  title: 'Order',
+  type: 'number',
+  description: 'Lower numbers appear first',
+  initialValue: 0,
+}),
   ],
   preview: {
     select: {
