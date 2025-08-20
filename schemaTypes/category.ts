@@ -1,3 +1,4 @@
+// ./schemas/category.ts
 import { defineType, defineField } from 'sanity'
 
 export default defineType({
@@ -15,7 +16,10 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: { source: 'title', maxLength: 96 },
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
     }),
     defineField({
       name: 'parent',
@@ -30,4 +34,16 @@ export default defineType({
       type: 'text',
     }),
   ],
+  preview: {
+    select: {
+      title: 'title',
+      parent: 'parent.title',
+    },
+    prepare({ title, parent }) {
+      return {
+        title,
+        subtitle: parent ? `Child of ${parent}` : 'Top-level',
+      }
+    },
+  },
 })
