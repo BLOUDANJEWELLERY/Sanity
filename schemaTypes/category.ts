@@ -34,23 +34,25 @@ export default defineType({
       type: 'text',
     }),
     defineField({
-  name: 'order',
-  title: 'Order',
-  type: 'number',
-  description: 'Lower numbers appear first',
-  initialValue: 0,
-}),
+      name: 'order',
+      title: 'Order',
+      type: 'number',
+      description: 'Lower numbers appear first within the same parent',
+      initialValue: 0,
+    }),
   ],
   preview: {
     select: {
       title: 'title',
-      parent: 'parent.title',
+      parentTitle: 'parent.title',
       order: 'order',
     },
-    prepare({ title, parent, order }) {
+    prepare({ title, parentTitle, order }) {
       return {
         title,
-        subtitle: parent ? `Child of ${parent} (Order: ${order})` : `Top-level (Order: ${order})`,
+        subtitle: parentTitle
+          ? `Child of ${parentTitle} (Order: ${order})`
+          : `Top-level (Order: ${order})`,
       }
     },
   },
