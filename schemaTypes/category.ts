@@ -33,16 +33,24 @@ export default defineType({
       title: 'Description',
       type: 'text',
     }),
+    defineField({
+      name: 'order',
+      title: 'Order',
+      type: 'number',
+      description: 'Controls the display order within its parent category',
+      initialValue: 0,
+    }),
   ],
   preview: {
     select: {
       title: 'title',
       parent: 'parent.title',
+      order: 'order',
     },
-    prepare({ title, parent }) {
+    prepare({ title, parent, order }) {
       return {
         title,
-        subtitle: parent ? `Child of ${parent}` : 'Top-level',
+        subtitle: parent ? `Child of ${parent} (Order: ${order})` : `Top-level (Order: ${order})`,
       }
     },
   },
