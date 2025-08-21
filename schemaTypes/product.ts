@@ -26,12 +26,12 @@ export default defineType({
 
     // 🔥 New Category Reference
     defineField({
-      name: 'category',
-      title: 'Category',
-      type: 'reference',
-      to: [{ type: 'category' }],
-      validation: Rule => Rule.required(),
-    }),
+  name: 'categories',
+  title: 'Categories',
+  type: 'array',
+  of: [{ type: 'reference', to: [{ type: 'category' }] }],
+  validation: Rule => Rule.required(),
+})
 
     defineField({
       name: 'defaultImage',
