@@ -31,7 +31,7 @@ export default defineType({
   type: 'array',
   of: [{ type: 'reference', to: [{ type: 'category' }] }],
   validation: Rule => Rule.required(),
-})
+}),
 
     defineField({
       name: 'defaultImage',
