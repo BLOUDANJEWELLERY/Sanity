@@ -23,6 +23,16 @@ export default defineType({
       type: 'number',
       validation: Rule => Rule.required(),
     }),
+
+    // 🔥 New Category Reference
+    defineField({
+      name: 'category',
+      title: 'Category',
+      type: 'reference',
+      to: [{ type: 'category' }],
+      validation: Rule => Rule.required(),
+    }),
+
     defineField({
       name: 'defaultImage',
       title: 'Default Image',
@@ -123,6 +133,14 @@ export default defineType({
       title: 'title',
       subtitle: 'price',
       media: 'defaultImage',
+      categoryTitle: 'category.title',
+    },
+    prepare({ title, subtitle, media, categoryTitle }) {
+      return {
+        title,
+        subtitle: categoryTitle ? `${subtitle} • ${categoryTitle}` : subtitle,
+        media,
+      }
     },
   },
 })
